@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(mkdir -p out/:*)",
+      "Bash(python3 tools/cut.py:*)",
+      "Bash(python3 tools/captions.py:*)",
+      "Bash(python3 tools/thumbnail.py:*)",
+      "Bash(python3 tools/frames.py:*)",
+      "Bash(mv inbox/:*)",
+      "Read",
+      "Edit(out/**)",
+      "Edit(done/**)",
+      "mcp__memory"
+    ],
+    "ask": [
+      "Bash(git push:*)"
+    ],
+    "deny": [
+      "Bash(rm:*)",
+      "Bash(curl:*)",
+      "Bash(wget:*)",
+      "Read(.env)"
+    ]
+  },
+  "enableAllProjectMcpServers": true
+}

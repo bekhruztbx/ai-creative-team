@@ -1,0 +1,9 @@
+inbox/*
+!inbox/.gitkeep
+out/*
+!out/.gitkeep
+done/*
+!done/.gitkeep
+tools/models/
+__pycache__/
+.env
