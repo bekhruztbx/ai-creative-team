@@ -4,6 +4,8 @@ out/*
 !out/.gitkeep
 done/*
 !done/.gitkeep
-tools/models/
+.claude/skills/reel/scripts/models/
 __pycache__/
 .env
+!inbox/radar/
+!inbox/stats/

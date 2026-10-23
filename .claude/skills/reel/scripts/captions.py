@@ -3,7 +3,7 @@
 usage: python3 tools/captions.py <in.mp4> <out.mp4> [--srt captions.srt] [--color #FFD400] [--words 3] [--y 0.70] [--replace "wrong=right" ...]
 
 Speech-to-text runs locally: faster-whisper if it is installed (word timestamps), otherwise sherpa-onnx Whisper
-(model folder in $WHISPER_ONNX_DIR or tools/models/sherpa-onnx-whisper-tiny.en, see tools/setup.sh).
+(model folder in $WHISPER_ONNX_DIR or .claude/skills/reel/scripts/models/sherpa-onnx-whisper-tiny.en, see setup.sh).
 """
 import argparse, os, re, subprocess, sys
 import numpy as np

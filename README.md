@@ -1,20 +1,23 @@
-# AI Creative Team for Claude Code
+# AI Creative Team: one agent, six skills
 
-A small team of AI agents that turns raw clips into short vertical videos. One command, and every clip in `inbox/` is cut, captioned and given a cover image, by sub-agents working in parallel. A shared brain remembers your brand rules, and nothing is published without your OK.
+One Claude Code agent with a library of six skills that turns raw clips into short vertical videos, writes scripts, finds video ideas, writes post copy and learns from your stats. A shared brain remembers your brand rules, and nothing is published without your OK.
 
-Built in the Bekhruz AI video "I Built an AI Agent Team From Scratch".
+Built in the Bekhruz AI series "Build Your AI Team". Episode 4 built this as a team of separate agents. Episode 6 turned every agent into a skill, following Anthropic's advice: don't build agents, build skills.
 
-## What you get
+> Looking for the Episode 4 version, the team of separate sub-agents? It is on the [`episode-4` branch](https://github.com/bekhruztbx/ai-creative-team/tree/episode-4).
 
-| Piece | File | What it does |
+## The skills
+
+| Skill | Folder | What it does |
 |---|---|---|
-| Team charter | `CLAUDE.md` | Who is on the team, the folders, the rules |
-| Clip editor | `.claude/agents/clip-editor.md` | Sub-agent: one raw clip in, a finished vertical edit out |
-| Brand checker | `.claude/agents/brand-checker.md` | Sub-agent: reviews every edit against your brand rules |
-| The command | `.claude/commands/edit-clips.md` | `/edit-clips`: one clip-editor per clip, in parallel, then the check |
-| Approvals | `.claude/settings.json` | What the team may do on its own, what it must ask, what it may never do |
-| Shared brain | `.mcp.json` + `brain/memory.jsonl` | Memory MCP server holding your brand rules |
-| Tools | `tools/cut.py`, `tools/captions.py`, `tools/thumbnail.py`, `tools/frames.py` | Pause and filler removal with vertical reframe, local speech-to-text and word-by-word captions, cover image, contact sheet for checking |
+| reel | `.claude/skills/reel/` | One raw clip in, a cut, captioned vertical edit out. Its scripts (cut, captions, frames) live in the same folder. |
+| pixel | `.claude/skills/pixel/` | The cover image, following your cover rules |
+| quill | `.claude/skills/quill/` | Scripts, hooks and voice-overs in your voice |
+| radar | `.claude/skills/radar/` | Comments and notes in `inbox/radar/` in, a ranked shortlist of video ideas out |
+| relay | `.claude/skills/relay/` | Titles, descriptions, captions and a pinned comment. It never posts. |
+| pulse | `.claude/skills/pulse/` | Analytics CSVs in `inbox/stats/` in, lessons for the next script out |
+
+Each skill is a folder with a `SKILL.md`. Claude Code only reads the name and the one-line description of each skill at the start, and opens a skill's full instructions (and its scripts) only when a task needs it.
 
 ## Setup (once)
 
@@ -23,27 +26,34 @@ You need [Claude Code](https://claude.com/claude-code), ffmpeg, Python 3.10+ and
 ```bash
 git clone https://github.com/bekhruztbx/ai-creative-team
 cd ai-creative-team
-bash tools/setup.sh
+bash setup.sh
 ```
 
 ## Use it
 
-1. Put raw clips (mp4, mov, m4v) in `inbox/`. Tip: make `inbox/` a Google Drive folder with Drive for desktop, and clips you drop on your phone land here.
-2. Start Claude Code in this folder: `claude`
-3. Type `/edit-clips`
+Start Claude Code in this folder (`claude`) and just ask:
 
-Each clip ends up in `out/<clip-name>/`: `edit.mp4` (vertical, captioned), `cover.jpg`, `captions.srt` and `notes.md` (title, cover text, hook, transcript).
+- *"There's a new clip in inbox. Make it a reel."* (uses reel and pixel)
+- *"Write a 45-second reel script about …"* (uses quill)
+- *"Go through the comments in inbox/radar and tell me what to make next."* (uses radar)
+- *"Write the post copy for out/<clip>."* (uses relay)
+- *"Here are this month's stats, what worked?"* (uses pulse)
+
+Finished work lands in `out/`. Raw clips move to `done/` after their edit is finished.
 
 ## Teach it your style
 
-Just tell Claude, for example: *"From now on, cover text is red, not yellow."* The rule goes into the shared brain (`brain/memory.jsonl`), and every agent follows it from the next run on. You can also edit the starting rules in that file.
+Tell Claude a preference, for example *"From now on, cover text is red, not yellow."* It goes into the shared brain (`brain/memory.jsonl`) and every skill follows it from then on.
+
+Skills can improve too. When a step keeps going wrong, Claude proposes a change to that skill's `SKILL.md` and shows it to you. Edits to `.claude/skills/` always ask for your OK first (`.claude/settings.json`).
 
 ## Safety
 
-- The team may only run the four tools in `tools/`, move clips from `inbox/` to `done/` and write into `out/` (`.claude/settings.json`).
+- The agent may only run the skill scripts, move clips from `inbox/` to `done/` and write into `out/` (`.claude/settings.json`).
 - Deleting files and network tools like `curl` are blocked. Pushing to git asks you first.
 - Nothing is uploaded or posted. You review `out/` and publish yourself.
+- Installing skills from other people? Read them first, or ask Claude to read one and list every file, command and network call before you use it.
 
 ## License
 
-MIT. The Geist font in `tools/fonts/` is under the SIL Open Font License.
+MIT. The Geist font in the skill folders is under the SIL Open Font License.

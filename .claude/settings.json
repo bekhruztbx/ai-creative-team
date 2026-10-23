@@ -2,19 +2,22 @@
   "permissions": {
     "allow": [
       "Bash(ls:*)",
+      "Bash(python3 .claude/skills/reel/scripts/cut.py:*)",
+      "Bash(python3 .claude/skills/reel/scripts/captions.py:*)",
+      "Bash(python3 .claude/skills/reel/scripts/frames.py:*)",
+      "Bash(python3 .claude/skills/pixel/scripts/thumbnail.py:*)",
       "Bash(mkdir -p out/:*)",
-      "Bash(python3 tools/cut.py:*)",
-      "Bash(python3 tools/captions.py:*)",
-      "Bash(python3 tools/thumbnail.py:*)",
-      "Bash(python3 tools/frames.py:*)",
-      "Bash(mv inbox/:*)",
+      "Bash(mv inbox/*)",
       "Read",
       "Edit(out/**)",
       "Edit(done/**)",
-      "mcp__memory"
+      "mcp__memory",
+      "Skill",
+      "Write(out/**)"
     ],
     "ask": [
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Edit(.claude/skills/**)"
     ],
     "deny": [
       "Bash(rm:*)",
